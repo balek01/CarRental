@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row mt-5">
+
+    <?php if (!empty($auta)) : ?>
+
+      <?php foreach ($auta as $auto) : ?>
+        <?php $img = $auto["img"] ?? "" ?>
+        <div class="col-6 col-md-4 col-lg-3 px-2 mb-3">
+          <div class="card">
+            <a href="/vozovy_park/vozidlo?id=<?= $auto["idcar"] ?>">
+              <img class="card-img-top img-fluid" src="<?= $img ?>" alt="Chyba">
+            </a>
+            <div class="card-body">
+              <a style="padding: 0;" class="btn" href="/vozovy_park/vozidlo?id=<?= $auto["idcar"] ?>">
+                <h5 class="card-title"><?= ucfirst($auto["brand"]) . " " . $auto["model"] ?></h5>
+              </a>
+              <p class="card-text text"><?= $auto["description"] ?></p>
+
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"> <?= $auto["available"] == 0 ? "Nedostupné " : "" ?><?= round($auto["price"]) . " Kč/den" ?></li>
+            </ul>
+          </div>
+        </div>
+      <?php endforeach ?>
+    <?php else : ?>
+      <div class="col-md-12 d-flex justify-content-center mt-5">
+        <h5 class="heading">Bohužel požadavkům nevyhovuje žádné vozidlo.</h5>
+      </div>
+
+    <?php endif ?>
+  </div>
+</div>

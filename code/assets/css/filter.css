@@ -1,0 +1,40 @@
+.filter select {
+  
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 2px #aaa;
+  background: #eee;
+}
+
+.filter {
+  text-align: center;
+}
+
+.filter input {
+ 
+ 
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background: #eee;
+}
+
+.filter button {
+ 
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+
+}
+
+* {
+  outline: none;
+}
+
+
+@media (max-width: 600px) {
+  .heading {
+    font-size: 30px;
+  }
+}

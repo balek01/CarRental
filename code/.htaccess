@@ -1,0 +1,31 @@
+Allow from all
+Options -Indexes
+RewriteEngine On
+
+# Force HTTP to HTTPS
+RewriteCond %{HTTP:X-Forwarded-Proto} =http [OR]
+RewriteCond %{HTTP:X-Forwarded-Proto} =""
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+RewriteRule ^vozovy_park$ /carlist/carlist.php
+RewriteRule ^vozovy_park/vozidlo$ /productsite/product.php
+RewriteRule ^registrace$ /registration/registration.php
+RewriteRule ^o_nas$ /about_us/aboutus.php
+RewriteRule ^moje_rezervace$ /reservedhistory/reservehistory.php
+RewriteRule ^muj_profil$ /profile/profile.php
+RewriteRule ^zmena_hesla$ /password/passwordchange.php
+
+RewriteRule ^admin$ /administration/administration.php
+RewriteRule ^admin/uzivatele$ /administration/usersadmin/usersadmin.php
+RewriteRule ^admin/uzivatele/detail_uzivatele$ /administration/usersadmin/userdetail/userdetail.php
+RewriteRule ^admin/rezervace$ /administration/reservationsadmin/reservationadmin.php
+RewriteRule ^admin/rezervace/detail_rezervace$ /administration/reservationsadmin/reservationdetail/reservationdetail.php
+RewriteRule ^admin/vozidla$ /administration/carsadmin/carsadmin.php
+RewriteRule ^admin/přidání_vozidla$ /administration/addcar/addcar.php
+RewriteRule ^admin/vozidla/detail_vozidla$ /administration/carsadmin/cardetail/cardetail.php
+RewriteRule ^admin/administratori$ /administration/administrators/administrators.php
+RewriteRule ^admin/pridat_administratora$ /administration/addadmin/addadmin.php
+RewriteRule ^admin/zmena_hesla$ /administration/changepassadmin/changepassadmin.php
+

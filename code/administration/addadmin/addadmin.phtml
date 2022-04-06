@@ -1,0 +1,34 @@
+
+<div class="container">
+    <div class="row ">
+
+        <div class="col-md-8  shadow  mx-auto mt-5 py-4 px-5">
+            <h4 class="">REGISTRACE NOVÉHO ADMINISTRÁTORA</h4>
+            <form method="POST" id="formlogin">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 pb-3">
+                            <input required name="adminname" type="text" class="form-control " placeholder="Administrátorské jméno" <?= isset($jmeno)&&!isset($successaddadmin) ? 'value="' . $jmeno . '"' : "" ?>>
+                            <label class="text-danger" style="<?= isset($error["err1"]) ? "display: inline" : "display: none;" ?>">Toto jméno je již registrováno.</label>
+                        </div>
+                        <div class="col-md-12 pb-3">
+                            <input required name="password" type="password" class="form-control " placeholder="Heslo">
+                        </div>
+                        <div class="col-md-12 pb-3">
+                            <input required name="password2" type="password" class="form-control " placeholder="Heslo znovu">
+                        </div>
+                        <label class="text-danger" style="<?= isset($error["err2"]) ? "display: inline" : "display: none;" ?>">Hesla se neshodují.</label>
+
+
+                        <div class="col-12 mt-3">
+                            <button class="btn barvabtnseda btn-dark w-100 py-2" type="submit" name="submitadmin"><strong>Zaregistrovat administrátora</strong></button>
+                        </div>
+                        <label class="text-danger" style="<?= isset($error["err0"]) ? "display: inline" : "display: none;" ?>">Všechna pole musí být vyplněna.</label>
+                        <label class="text-success" style="<?= isset($successaddadmin) ? "display: inline" : "display: none;" ?>">Administrátor úspěšně přidán.</label>
+
+
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-auto">
+
+    <?php if (!empty($reservations)) : ?>
+      <h2 class="text-center mb-5">Historie rezervací</h2>
+      <table class="table table-responsive table-bordered text-center datatablereservation">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">ID uživatele</th>
+            <th scope="col">Vozidlo</th>
+            <th scope="col">Datum rezervace</th>
+            <th scope="col">Datum vypůjčení</th>
+            <th scope="col">Dohodnuté datum vrácení</th>
+            <th scope="col">Datum vrácení</th>
+            <th scope="col">Částka</th>
+            <th scope="col">Upravit</th>
+            <th scope="col">Odstranit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($reservations as $reservation) : ?>
+            <tr>
+              <td scope="row"><?= $reservation["idreservation"] ?></td>
+              <td style="padding: 0px;"><a class="link-unstyled" href="/admin/uzivatele/detail_uzivatele?id=<?= $reservation["user_id"] ?>"><button class="btn odkaztable"><strong> <?= $reservation["user_id"] ?></strong></button></a></td>
+              <td style="padding: 0px;"> <a class="link-unstyled" href="/vozovy_park/vozidlo?id=<?= $reservation["carid"] ?>"><button class="btn odkaztable"><strong> <?= $reservation["brand"] . " " . $reservation["model"]; ?></strong></button></a></td>
+              <td><?= $reservation["date_of_reservation"]; ?></td>
+              <td><?= $reservation["start_date"]; ?></td>
+              <td><?= $reservation["end_date"]; ?></td>
+              <td><?= (isset($reservation["return_date"]))  ? $reservation["return_date"] : 'Nevráceno'; ?></td>
+              <td><?= $reservation["cost"] ?></td>
+              <td style="padding: 0px;"> <a class="link-unstyled" href="/admin/rezervace/detail_rezervace?id=<?= $reservation["idreservation"] ?>"><button class="btn odkaztable"><strong>Upravit</strong></button></a></td>
+              <td style="padding: 0px;"><button id="<?= $reservation["idreservation"]; ?>" data-clicked="false" class="btn odkaztable deletereservation text-danger" data-toggle="modal" data-target="#modaldelete">Odstranit</button></td>
+            </tr>
+          <?php endforeach ?>
+        </tbody>
+      </table>
+    <?php else : ?>
+      <?= '<h2 class="text-center">NEMÁTE ŽÁDNÉ REZERVACE</h2>' ?>
+    <?php endif ?>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Odstranit rezervaci</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="deletemodal" class="modal-body">
+        <div class="row">
+          <div class="col-md-12">Skutečně chcete odstranit rezervaci?</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="confirmdelete" class="btn" style="border: 1px solid rgb(172, 172, 172);">Odstranit</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script defer src="../../assets/js/reservationbody.js"></script>

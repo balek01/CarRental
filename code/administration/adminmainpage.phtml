@@ -1,0 +1,50 @@
+<?php
+
+if (!empty($_POST["username"]) && !empty($_POST["password"])) {
+  $errlog =   adminlogin($_POST["username"], $_POST["password"]);
+}
+
+$errlog = $errlog ?? null;
+
+?>
+
+
+
+
+
+<div class="container mt-5 mx-auto">
+
+
+
+  <?php if (!isset($_SESSION["idadmin"])) : ?>
+    <h2 class="text-center">Administrace přihlášení</h2>
+
+    <div class="col-md-7 shadow  mx-auto mt-5 p-4">
+      <form method="POST" id="form" class="mx-auto">
+        <div class="form-row">
+
+          <div class="col-12 mt-3">
+            <input required name="username" type="text" class="form-control " placeholder="Administrátorské jméno">
+          </div>
+          <div class="col-12 mt-3">
+            <input required name="password" type="password" class="form-control " placeholder="Heslo">
+          </div>
+
+          <?php if ($errlog === false) : ?>
+            <div class="col-10 text-danger">
+              <small>Jméno nebo heslo je chybné.</small>
+            </div>
+          <?php endif ?>
+
+          <div class="col-12 mt-3">
+            <button class="btn btn-dark py-2 w-100" type="submit">Přihlásit se</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  <?php else : ?>
+    <h2 class="text-center mt-3">Admin je přihlášen</h2>
+
+  <?php endif ?>
+</div>

@@ -1,0 +1,156 @@
+<div class="container mt-5 mx-auto">
+
+
+    <h2 class="text-center">REGISTRACE NOVÉHO UŽIVATELE</h2>
+
+    <div class="col-md-9  shadow  mx-auto mt-5 py-4 px-5">
+        <div class="row justify-content-center align-items-center ">
+            <form method="POST" id="formregister" class="formregister mx-auto">
+                <div class="form-row">
+
+                    <div class="col-md-6  mt-3">
+                        <input required name="jmeno" type="text" class="form-control " placeholder="Jméno">
+                    </div>
+                    <div class="col-md-6  mt-3">
+                        <input required name="prijmeni" type="text" class="form-control " placeholder="Příjmení">
+
+                    </div>
+
+
+                    <div class="col-md-6 text-danger">
+                        <label class="err" id="err1" style="display: none;">Formát jména je chybný.</label>
+                    </div>
+
+                    <div class="col-md-6 text-danger">
+                        <label class="err" id="err2" style="display: none;">Formát příjmení je chybný.</label>
+                    </div>
+
+
+
+                    <div class="col-md-6  mt-3">
+                        <input name="datum" type="datetime" class="form-control " placeholder="Datum narození (dd.mm.rrrr)">
+                    </div>
+
+                    <div class="col-md-6  mt-3">
+                        <input required name="tel" type="text" class="form-control " placeholder="Telefon">
+                    </div>
+
+                    <div class="col-md-6 text-danger">
+                        <label style="display: none; " class="err" id="err3">Zadejte platné datum narození (dd.mm.rrrr).</label>
+                        <label style="display: none; " class="err" id="err14">Musíte být starší než 18let.</label>
+                    </div>
+
+
+
+
+                    <div class="col-md-6 text-danger">
+                        <label class="err" id="err5" style="display: none;" class="">Zadejte platné tel. číslo</label>
+                        <label class="err" id="err15" style="display: none;" class="">Tel. číslo je již zaregistrované.</label>
+                    </div>
+                    <div class="col-md-12  mt-3">
+                        <input required name="email" type="email" class="form-control " placeholder="Email">
+                    </div>
+
+
+                    <div id="err13" class="col-md-12 err" style="display: none;">
+                        <label class="text-danger">Email je již zaregistrovaný.</label>
+                    </div>
+
+
+                    <div class="col-md-12 text-danger">
+                        <label style="display: none; " class="err" id="err4">Zadejte platný email.</label>
+                    </div>
+
+
+                    <div class="col-md-6  mt-3">
+                        <input required name="password" type="password" class="form-control " placeholder="Heslo">
+                    </div>
+                    <div class="col-md-6  mt-3">
+                        <input required name="passwordover" type="password" class="form-control " placeholder="Heslo znovu">
+                    </div>
+
+
+
+                    <div class="col-md-6 text-danger">
+                        <label class="err" id="err6" style="display: none;">Min 8 znaků, jedno velké písmeno, malé písmeno a
+                            číslici.</label>
+                    </div>
+
+                    <div class="col-md-6 text-danger">
+                        <label class="err" id="err7" style="display: none;" class="">Hesla se neshodují.</label>
+                    </div>
+
+
+
+
+                    <div class="col-md-8 mt-5">
+                        <input required name="ulice" type="text" class="form-control " placeholder="Ulice">
+                    </div>
+                    <div class="col-md-4 mt-md-5 mt-3">
+                        <input required name="cp" type="text" class="form-control " placeholder="Č. p.">
+                    </div>
+
+
+
+                    <div class="col-md-8 text-danger">
+                        <label class="err" id="err8" style="display: none;">Název ulice není platný.</label>
+                    </div>
+
+                    <div class="col-md-4 text-danger">
+                        <label class="err" id="err9" style="display: none;">Zadejte platné Č.p.</label>
+                    </div>
+
+
+
+
+                    <div class="col-md-8 mt-3">
+                        <input required name="obec" type="text" class="form-control " placeholder="Obec">
+                    </div>
+
+                    <div class="col-md-4  mt-3">
+                        <input required name="psc" type="text" class="form-control" placeholder="PSČ">
+                    </div>
+
+
+
+                    <div class="col-md-8 text-danger">
+                        <label class="err" id="err10" style="display: none;">Název obce není platný.</label>
+                    </div>
+
+                    <div class="col-md-4 text-danger">
+                        <label class="err" id="err11" style="display: none;">Zadejte platné PSČ.</label>
+                    </div>
+
+
+                    <div class="col-12 mt-3">
+                        <div class="form-check">
+                            <input id="checkito" class="form-check-input" type="checkbox" name="checkbox" style="min-height: 15px; min-width: 15px;">
+                            <label for="checkito" class="form-check-label">
+                                Potvrzuji, že jsem četl a souhlasím s obchodními podmínkami a se zpracováním osobních údajů.
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div id="err12" class="col-md-12 err" style="display: none;">
+                        <label class="text-danger">↑ Potvrďtě prosím.</label>
+                    </div>
+
+                    <div id="err0" class="col-md-12  err" style="display: none;">
+                        <label class="text-danger">Všechna pole musí být vyplněná.</label>
+                    </div>
+
+
+                    <div class="col-12 mt-3">
+                        <button name="registerbtn" class="btn barvabtnseda btn-dark w-100 py-2" type="submit"><strong>Zaregistrovat se!</strong></button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script defer src="../assets/js/registration.js">
+
+</script>

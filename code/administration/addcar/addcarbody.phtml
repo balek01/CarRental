@@ -1,0 +1,139 @@
+<div class="container mt-5 mx-auto">
+
+
+
+
+    <div class="row ">
+
+        <div class="col-md-8  shadow  mx-auto mt-5 py-4 px-5">
+            <h4 class="">REGISTRACE NOVÉHO VOZIDLA</h4>
+            <form method="POST" id="formregistercar" class="formregister mx-auto" enctype="multipart/form-data">
+                <div class="form-row">
+
+                    <div class="col-md-6  mt-3">
+                        <input name="znacka" type="text" class="form-control" placeholder="Tovární značka" value="<?= isset($_POST["znacka"]) ? $_POST["znacka"] : "" ?>">
+                    </div>
+                    <div class="col-md-6  mt-3">
+                        <input name="model" type="text" class="form-control " placeholder="Model" value="<?= isset($_POST["model"]) ? $_POST["model"] : "" ?>">
+
+                    </div>
+
+                    <div class=" col-md-4 mt-3">
+                        <select name="pohon" class="w-100 select">
+                            <option value="*" <?= (isset($_POST['pohon']) && $_POST['pohon'] === '*') ? 'selected' : ''; ?>>Typ paliva</option>
+                            <option value="Benzín" <?= (isset($_POST['pohon']) && $_POST['pohon'] === 'Benzín') ? 'selected' : ''; ?>>Benzín</option>
+                            <option value="Nafta" <?= (isset($_POST['pohon']) && $_POST['pohon'] === 'Nafta') ? 'selected' : ''; ?>>Nafta</option>
+                            <option value="Elektřina" <?= (isset($_POST['pohon']) && $_POST['pohon'] === 'Elektřina') ? 'selected' : ''; ?>>Elektřina</option>
+                            <option value="LPG" <?= (isset($_POST['pohon']) && $_POST['pohon'] === 'LPG') ? 'selected' : ''; ?>>LPG</option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="col-md-4 mt-3">
+                        <select name="razeni" class="w-100 select">
+                            <option value="*" <?= (isset($_POST['razeni']) && $_POST['razeni'] === '*') ? 'selected' : ''; ?>>Způsob řazení</option>
+                            <option value="Manuální" <?= (isset($_POST['razeni']) && $_POST['razeni'] === 'Manuální') ? 'selected' : ''; ?>>Manuální</option>
+                            <option value="Automatické" <?= (isset($_POST['razeni']) && $_POST['razeni'] === 'Automatické') ? 'selected' : ''; ?>>Automat</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <input name="mista" type="number" class="form-control " placeholder="Počet míst" value="<?= isset($_POST["mista"]) ? $_POST["mista"] : "" ?>">
+                        <label class="text-danger" style="<?= isset($err["errinp0"]) ? "display: inline" : "display: none;" ?>">Počet míst být celé číslo.</label>
+
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                        <textarea class="form-control" name="description" rows="3" placeholder="Popis vozidla"><?= isset($_POST["description"]) ? $_POST["description"] : "" ?></textarea>
+                    </div>
+
+                    <div class=" col-md-4 mt-3">
+                        <input name="cena" type="text" class="form-control " placeholder="Cena za den" value="<?= isset($_POST["cena"]) ? $_POST["cena"] : "" ?>">
+                    </div>
+
+                    <div class=" col-md-4 mt-3">
+                        <input name="spz" type="text" class="form-control " placeholder="SPZ" value="<?= isset($_POST["spz"]) ? $_POST["spz"] : "" ?>">
+                    </div>
+
+                    <div class="col-md-4  mt-3 border p-0 rounded">
+                        <input class="m-0" name="dostupnost" type="checkbox" data-toggle="toggle" data-on="Dostupné" data-off="Nedostupné" data-onstyle="default" data-offstyle="dark" data-width="100%" <?= isset($_POST["dostupnost"]) ? "checked" : "" ?>>
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                    <label class="text-danger" style="<?= isset($err["errinp3"]) ? "display: inline" : "display: none;" ?>">SPZ je již zaregistrováno.</label>
+                    <label class="text-danger" style="<?= isset($err["errinp1"]) ? "display: inline" : "display: none;" ?>">Cena musí být pouze celé číslo.</label>
+                    </div>
+
+                    
+
+                    <?php foreach ($equipment as $equipmentpiece) : ?>
+                        <div class="col-md-3 col-sm-4 col-6 mt-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="<?= $equipmentpiece['equipment_name'] ?>" name="<?=$equipmentpiece['equipment_name'];  ?>" style="min-height: 15px; min-width: 15px;" <?= isset($_POST[$equipmentpiece["equipment_name"]]) ? "checked" : $equipmentpiece["equipment_name"] ?>>
+                                <label class="form-check-label" for="<?= $equipmentpiece['equipment_name'] ?>">
+                                    <?= str_replace("_","&nbsp;",$equipmentpiece["equipment_name"]) ?>
+                                </label>
+                            </div>
+                        </div>
+                    <?php endforeach ?>
+
+
+
+                    <div class="col-12 mt-3">
+                        <button class="btn barvabtnseda btn-dark w-100 py-2" type="submit" name="submit1"><strong>Zaregistrovat vozidlo</strong></button>
+                    </div>
+                </div>
+                <div class="col-md-12 text-danger px-0">
+                    <label style="<?= isset($err["errimg0"]) ? "display: inline" : "display: none;" ?>">Špatný formát obrázku.</label>
+                    <label style="<?= isset($err["errimg1"]) ? "display: inline" : "display: none;" ?>">Obrázek již existuje.</label>
+                    <label style="<?= isset($err["errimg2"]) ? "display: inline" : "display: none;" ?>">Obrázek je příliš velký.</label>
+                    <label style="<?= isset($err["errimg3"]) ? "display: inline" : "display: none;" ?>">Obrázek musí být velký 1280x720px.</label>
+                    <label class="text-danger" style="<?= isset($err["errinp2"]) ? "display: inline" : "display: none;" ?>">Vybraný phon či způsob řazení je neplatný.</label>
+
+                    <label style="<?= isset($err["err0"]) ? "display: inline" : "display: none;" ?>">Všechna pole musí být vyplněna včetně obrázku.</label>
+                </div>
+
+        </div>
+
+        <div class="col-md-3">
+            <div class="col-12  shadow mx-auto my-5 py-3">
+                <div class="col-12">
+                    <img style="max-height: 200px !important;" class="align-middle img-fluid" src="../../assets/img/addcarimg.png" id="imgpre" alt="stala se chyba">
+                </div>
+
+
+                <div class="custom-file col-12 mt-3">
+                    <input type="file" class="custom-file-input" id="imginput" name="imginput" accept="image/x-png,image/jpeg,image/jpg">
+                    <label class="custom-file-label loadphoto" for="customFile">Nahrát foto</label>
+                </div>
+            </div>
+
+            </form>
+            <div class="col-12  shadow mx-auto py-4">
+                <form method="POST" id="formregisterequipment" class="formregister mx-auto">
+                    <div class="col-md-12">
+                        <strong>Přidání vybavení</strong>
+                    </div>
+                    <div class=" col-md-12 mt-3">
+                        <input name="vybaveni1" type="text" class="form-control " placeholder="Vybavení">
+
+                    </div>
+                    <div class=" col-md-12 mt-3">
+                        <input name="vybaveni2" type="text" class="form-control " placeholder="Vybavení">
+
+                    </div>
+                    <div class="col-12 mt-3 pb-3">
+                        <button class="btn barvabtnseda btn-dark w-100 " type="submit" name="submit2">Přidat</button>
+                        <label class="text-danger" style="<?= isset($erreq1["0"]) || isset($erreq2["0"]) ? "display: inline" : "display: none;" ?>">Špatný formát.</label>
+                        <label class="text-danger" style="<?= isset($erreq1["1"]) || isset($erreq2["1"]) ? "display: inline" : "display: none;" ?>">Mezery nahraďte podtržítkem (_).</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script defer src="../../assets/js/getimg.js"></script>
+
+
+<script defer src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>

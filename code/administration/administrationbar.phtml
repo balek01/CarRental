@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<?php
+
+
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+} ?>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Admin | DriveOut | Bálek Miroslav</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/addcar.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/DataTables/datatables.min.css">
+    <link rel="stylesheet" href="/assets/css/datatables.css">
+
+</head>
+
+
+
+
+
+
+<body style="min-width: 360px;">
+
+
+    <nav class="navbar navbar-light navbar-expand-md shadow-sm">
+        <div class="container"><a class="navbar-brand" href="/admin">Administrace</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <?php if (isset($_SESSION["idadmin"])) : ?>
+                    <ul class="nav navbar-nav mr-auto">
+
+                        <li class="nav-item active"><a class="nav-link" href="/admin/vozidla">Automobily</a></li>
+
+                        <li class="nav-item active"><a class="nav-link" href="/admin/uzivatele">Uživatelé</a>
+                        </li>
+
+                        <li class="nav-item active"><a class="nav-link" href="/admin/rezervace">Rezervace</a></li>
+
+                        </li>
+                        <li class="nav-item active"><a class="nav-link" href="/admin/přidání_vozidla">Přidání vozidla</a></li>
+                        <?php if ($_SESSION["prava"] == 1) : ?>
+                            <li class="nav-item active"><a class="nav-link" href="/admin/administratori">Administrátoři</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="/admin/pridat_administratora">Přidat administrátora</a></li>
+                            
+                        <?php endif ?>
+                        <li class="nav-item active"><a class="nav-link" href="/admin/zmena_hesla">Změna hesla</a></li>
+                        <li class="nav-item active "><a class="nav-link" href="/assets/php/logout.php">Odhlášení</a></li>
+                    </ul>
+                <?php endif ?>
+
+            </div>
+        </div>
+    </nav>

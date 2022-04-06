@@ -1,0 +1,108 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-auto">
+
+
+
+
+    <h2 class="text-center mb-5">Seznam uživatelů</h2>
+    <table class="table table-responsive table-bordered text-center datatableuserlist">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Jméno</th>
+          <th scope="col">Příjmeni</th>
+          <th scope="col">E-mail</th>
+          <th scope="col">Telefon</th>
+          <th scope="col">Datum&nbspnarozeni</th>
+          <th scope="col">Adresa</th>
+          <th scope="col">Upravit</th>
+           <th scope="col">Odstranit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($users as $user) : ?>
+          <tr>
+            <td scope="row"><?= $user["iduser"] ?></td>
+            <td scope="row"><?= $user["firstname"] ?></td>
+            <td><?= $user["lastname"]; ?></td>
+            <td><?= $user["email"] ?></td>
+            <td><?=number_format($user["phonenumber"], 0, "", "&nbsp");?></td>
+            <td><?= $user["birthdate"]; ?></td>
+            <td style="padding: 0px;"><a id="<?= $user["user_address_id"]; ?>" class="link-unstyled getaddress"><button class="btn odkaztable " data-toggle="modal" data-target="#modaladresa"> Zobrazit</button></a></td>
+            <td style="padding: 0px;"> <a class="link-unstyled" href="/admin/uzivatele/detail_uzivatele?id=<?= $user["iduser"] ?>"><button class="btn odkaztable">Upravit</button></a></td>
+            <td style="padding: 0px;"><button id="<?= $user["iduser"]; ?>" data-clicked="false" class="btn odkaztable deleteuser text-danger" data-toggle="modal" data-target="#modaldelete">Odstranit</button></td>
+          </tr>
+        <?php endforeach ?>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+</div>
+
+
+<div class="modal fade" id="modaladresa" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Adresa uživatele</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="addressmodal" class="modal-body">
+        <div class="row">
+          <div class="col-md-3 border-bottom"><strong>Id adresy: </strong></div>
+          <div id="useraddressid" class="col-md-9 border-bottom"></div>
+
+          <div class="col-md-3 border-bottom"><strong>Město:</strong></div>
+          <div id="useraddresscity" class="col-md-3 border-bottom"></div>
+
+          <div  class="col-md-3 border-bottom"><strong>PSČ:</strong></div>
+          <div id="useraddresspostcode" class="col-md-3 border-bottom"></div>
+          
+
+          <div class="col-md-3"><strong>Ulice: </strong></div>
+          <div id="useraddressstreet" class="col-md-3"></div>
+
+          <div class="col-md-3"><strong>Č.p.: </strong></div>
+          <div id="useraddresshousenumber" class="col-md-3"></div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Odstranit uživatele</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="deletemodal" class="modal-body">
+        <div class="row">
+          <div class="col-md-12">Skutečně chcete odstranit uživatele?</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="confirmdeleteuser" class="btn" style="border: 1px solid rgb(172, 172, 172);">Odstranit</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script defer src="../../assets/js/userslistadmin.js">
+
+</script>

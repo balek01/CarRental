@@ -1,0 +1,41 @@
+<div class="container mt-5 mx-auto">
+
+    <div class="col-md-9  shadow  mx-auto py-4 px-5">
+        <div class="row">
+            <h4>Změna hesla</h4>
+            <form method="POST" id="formupdate">
+                <div class="form-row ">
+
+
+
+
+                    <div class="col-md-12  mt-3">
+                                              
+                            <input required  name="stare"  type="password"  class="form-control" placeholder="Zadejte staré heslo.">
+                            <label class="text-danger" style="<?= isset($errorchange["err3"]) ? "display: inline" : "display: none;" ?>">Nesprávné heslo.</label>   
+                    </div>
+
+                    <div class="col-md-12  mt-3">
+
+                            <input required  name="nove"  type="password"  class="form-control" placeholder="Zadejte nové heslo.">
+                            <label class="text-danger" style="<?= isset($errorchange["err1"]) ? "display: inline" : "display: none;" ?>">Min 8 znaků, jedno velké písmeno, malé písmeno a
+                            číslici.</label>
+                    </div>
+
+                    <div class="col-md-12  mt-3">
+                            <input required name="znovu" type="password" class="form-control" placeholder="Zadejte znovu nové heslo.">
+                            <label class="text-danger" style="<?= isset($errorchange["err2"]) ? "display: inline" : "display: none;" ?>">Hesla se neshodují.</label>
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <button id="submitbutton"  name="changepassbtn" class="btn barvabtnseda btn-dark w-100 p-2" type="submit"><strong>Změnit heslo</strong></button>
+                        <label class="text-danger" style="<?= isset($errorchange["err0"]) ? "display: inline" : "display: none;" ?>">Všechna pole musí být vyplněná.</label>
+                        <label class="text-success" style="<?= isset($success) ? "display: inline" : "display: none;" ?>">Heslo bylo změněno.</label>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

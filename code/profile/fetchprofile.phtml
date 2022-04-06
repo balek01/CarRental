@@ -1,0 +1,83 @@
+<?php if (!empty($_SESSION["iduser"])) : ?>
+
+<div class="container mt-5 mx-auto">
+
+
+
+
+    <div class="col-md-9  shadow  mx-auto py-4 px-5">
+        <div class="row">
+            <h4>MŮJ PROFIL</h4>
+            <form method="POST" id="formupdate">
+                <div class="form-row ">
+
+                    <div class="col-md-6  mt-3">
+                        <input required disabled type="text" class="form-control" value="<?= ucfirst($user["firstname"]) ?>" placeholder="Jmeno">
+        
+                    </div>
+
+                    <div class="col-md-6  mt-3">
+                        <input required disabled type="text" class="form-control" value="<?= ucfirst($user["lastname"]) ?>" placeholder="Příjmení">
+                    </div>
+                    <div class="col-md-6  mt-3">
+                        <input disabled required name="datum"  type="date" class="form-control" value="<?= $user["birthdate"] ?>">
+                         </div>
+                    <div class="col-md-6  mt-3">
+                        <input required name="tel" type="text" class="form-control" value="<?= isset($_POST["tel"]) ? $_POST["tel"] : $user["phonenumber"] ?>" placeholder="Telefon">
+                        <label class="text-danger" style="<?= isset($errorarray["err5"]) ? "display: inline" : "display: none;" ?>">Špatný formát.</label>
+                        <label class="text-danger" style="<?= isset($errorarray["err15"]) ? "display: inline" : "display: none;" ?>">Telefon je již zaregistrovaný.</label>
+
+                    </div>
+
+                    <div class="col-md-12  mt-3">
+                        <input required name="email" type="text" class="form-control" value="<?= isset($_POST["email"]) ? $_POST["email"] : $user["email"] ?>" placeholder="Email">
+                        <label class="text-danger" style="<?= isset($errorarray["err4"]) ? "display: inline" : "display: none;" ?>">Špatný formát.</label>
+                        <label class="text-danger" style="<?= isset($errorarray["err13"]) ? "display: inline" : "display: none;" ?>">Email je již zaregistrovaný.</label>
+                    </div>
+
+                    <div class="col-md-8  mt-5">
+                        <input required name="obec" type="text" class="form-control" value="<?= ucfirst(isset($_POST["obec"]) ? $_POST["obec"] : $address["city"]) ?>" placeholder="Obec">
+                        <label class="text-danger" style="<?= isset($errorarray["err10"]) ? "display: inline" : "display: none;" ?>">Špatný formát.</label>
+                    </div>
+
+                    <div class="col-md-4  mt-md-5 mt-3">
+                        <input required name="psc" type="text" class="form-control" value="<?= isset($_POST["psc"]) ? $_POST["psc"] : $address["postcode"] ?>" placeholder="PSČ">
+                        <label class="text-danger" style="<?= isset($errorarray["err11"]) ? "display: inline" : "display: none;" ?>">Špatný formát.</label>
+                    </div>
+
+                    <div class="col-md-8 mt-3">
+                        <input required name="ulice" type="text" class="form-control" value="<?= isset($_POST["ulice"]) ? $_POST["ulice"] : ucfirst($address["street"]) ?>" placeholder="Ulice">
+                    </div>
+
+                    <div class="col-md-4 mt-3">
+                        <input required name="cp" type="text" class="form-control" value="<?= isset($_POST["cp"]) ? $_POST["cp"] : $address["house_number"] ?>" placeholder="Č.p.">
+                        <label class="text-danger" style="<?= isset($errorarray["err9"]) ? "display: inline" : "display: none;" ?>">Špatný formát.</label>
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <div class="form-check">
+                            <input id="checkito" class="form-check-input" type="checkbox" name="checkbox" style="min-height: 15px; min-width: 15px;" onclick="ischecked()">
+                            <label for="checkito" class="form-check-label">
+                                Upravit informace.
+                            </label>
+                        </div>
+                        <label class="text-danger" style="<?= isset($errorarray["err12"]) ? "display: inline" : "display: none;" ?>">Nutno zaškrtnout.</label>
+                        <label class="text-success" style="<?= isset($successupdateprofile) ? "display: inline" : "display: none;" ?>">Úprava proběhla v pořádku.</label>
+
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <button id="submitbutton" name="submit" disabled class="btn barvabtnseda btn-dark w-100 p-2" type="submit"><strong>Upravit informace</strong></button>
+                        <label class="text-danger" style="<?= isset($errorarray["err0"]) ? "display: inline" : "display: none;" ?>">Všechna pole musí být vyplněna.</label>
+
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+<?php else : ?>
+    <?= '<h2 class="text-center">ID uživatele neexistuje</h2>' ?>
+<?php endif ?>
+
+<script defer src="../assets/js/checkboxcheck.js"></script>

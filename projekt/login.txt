@@ -1,0 +1,7 @@
+URL adresa webu:
+http://balekmi.mp.spse-net.cz/
+http://balekmi.mp.spse-net.cz/admin
+
+superadmin: Párek SuperTajneHeslo147987
+admin: Buřt SuperTajneHeslo123963
+uživatel: karolina@email.com Heslíčko123

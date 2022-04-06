@@ -1,0 +1,144 @@
+<?php
+
+include 'reserve/validatereservation.php';
+include 'getproduct.php';
+
+$reservations = null;
+$errors = null;
+$success = null;
+if (isset($_POST["datumod"]) && isset($_GET["id"])) {
+
+    list($errors, $reservations,$success) = validatereservation($_GET["id"], $db);
+}
+
+?>
+
+<?php if (isset($id) && $dostupne!=2) : ?>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <div class="row">
+
+                    <h2 class="heading mb-4 mx-auto "><?= ucfirst($znacka) . " " . ucfirst($model) ?></h2>
+                </div>
+            </div>
+            <div class="col-md-6"><img class="img-fluid float-left" src="<?= $obrazek ?>"></div>
+            <div class="col-md-6">
+                <div class="table table-sm ">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Palivo</td>
+                                <td class="text-right"><?= $palivo ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Řazení</th>
+                                <td class="text-right"><?= $razeni ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Počet míst</th>
+                                <td class="text-right"><?= $mista ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Vybavení</th>
+                                <td class="text-right"><?= $vybaveni ?> </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Hodnocení</th>
+                                <td class="text-right"><?= isset($hodnoceni) ? $hodnoceni : "0" ?>&nbsp;<i class="fa fa-star fa-lg"></i> </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Cena za den</th>
+                                <td class="text-right"><strong><?= number_format($cena, 0, ",", "&nbsp") . "&nbspKč" ?></strong> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <?php if ($dostupne == 1) : ?>
+                    <div class="mt-3">
+                        <form class="form" id="formreservation" method="POST">
+                            <h5>Rezervace</h5>
+                            <div class="form-group row">
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="">Od:</span>
+                                        </div>
+                                        <input class="form-control" name="datumod" min="<?= $date = date("Y-m-d"); ?>" onchange="totalPrice(<?= $cena ?>)" id="datumod" type="date" value="<?= date("Y-m-d") ?>">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="">Do:</span>
+                                        </div>
+                                        <input class="form-control" name="datumdo" min="<?= $date = date(("Y-m-d"), strtotime(date("Y-m-d") . '+1 day')); ?>" onchange="totalPrice(<?= $cena ?>)" id="datumdo" type="date" value="<?= date('Y-m-d', strtotime("+1 day")); ?>">
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-6  mb-3">
+                                    <h5 id="totalprice">Cena celkem&nbsp<?= number_format($cena, 0, ",", "&nbsp") ?>&nbspKč</h5>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <button class="btn w-100 btn-dark"><strong>Rezervovat</strong></button>
+                                </div>
+
+
+                                <?php if (isset($errors[0])) : ?>
+                                    <?php foreach ($reservations as $reservation) : ?>
+                                        <div class="col-md-12" id="errreserve0">
+                                            <label class="text-danger float-right" style="display: inline">Auto je v tomto termínu již rezervováno:<strong> <?= date("d.m.Y", strtotime($reservation["start_date"])); ?> - <?= date("d.m.Y", strtotime($reservation["end_date"])); ?></strong></label>
+                                       
+                                        </div>
+                                    <?php endforeach ?>
+                                <?php endif ?>
+
+
+                                <div class="col-md-12" id="errreserve1">
+                                    <label class="text-danger float-right" style="display: <?= isset($errors[1]) ? 'inline' : 'none'; ?>;">Pro rezervaci je nutno se přihlásit.</label>
+                                    <label class="text-danger float-right" style="display: <?= isset($errors[2]) ? 'inline' : 'none'; ?>;">Pro rezervaci delší jak 14 dní nás kontaktujte telefonicky.</label>
+                                    <label class="text-success float-right" style="display: <?= isset($success) ? 'inline' : 'none'; ?>;">Rezervace proběhla v pořádku.</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="text-danger float-right" id="errreserve2" style="display:none">Zadejte platné datum.
+
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                <?php elseif($dostupne == 0) : ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>Vozidlo není dostupné.</h6>
+                        </div>
+                    </div>
+                <?php else : ?>
+                    <div style="height: 5rem;" class="col-md-12 d-flex justify-content-center mt-5">
+                        <h2 class="heading">Hledané vozidlo již neexistuje.</h2>
+                    </div>
+                <?php endif ?>
+            </div>
+
+            <div class="col-12">
+                <h5>Popis</h5>
+                <hr>
+                <p class="text-justify shadow p-3"><?= $popis ?></p>
+            </div>
+        </div>
+    </div>
+<?php else : ?>
+    <div style="height: 5rem;" class="col-md-12 d-flex justify-content-center mt-5">
+        <h2 class="heading">Hledané vozidlo neexistuje.</h2>
+    </div>
+<?php endif ?>
+
+
+<script defer src="/assets/js/totalPrice.js"></script>

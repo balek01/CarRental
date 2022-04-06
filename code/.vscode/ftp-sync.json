@@ -1,0 +1,27 @@
+{
+    "remotePath": "/web/",
+    "host": "sftp.balekmi.mp.spse-net.cz",
+    "username": "balekmi",
+    "password": "talovyzegyla",
+    "port": 2132,
+    "secure": false,
+    "protocol": "sftp",
+    "uploadOnSave": true,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "passphrase": null,
+    "agent": null,
+    "allow": [],
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store"
+    ],
+    "generatedFiles": {
+        "extensionsToInclude": [
+            ""
+        ],
+        "path": ""
+    }
+}

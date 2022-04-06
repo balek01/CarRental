@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <div class="col-md-12 mt-5">
+
+
+        <h2 class="mb-5 text-center">Seznam administrátorů</h2>
+        <table class="table table-striped table-responsive text-center">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Username</th>
+              <th scope="col">Práva</th>
+              <th scope="col">Datum posledního přihlášení</th>
+              <th scope="col">Odstranit</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($adminlist as $admin) : ?>
+              <tr>
+                <td scope="row"><?= $admin["idadmin"] ?></td>
+                <td><?= $admin["username"] ?></td>
+                <td><?= $admin["rights"] ?></td>
+                <td><?= $admin["datelog"] ?></td>
+                <td style="padding: 0px;"><button id="<?= $admin["idadmin"]; ?>" data-clicked="false" class="btn odkaztable admindelete text-danger" data-toggle="modal" data-target="#modaldeleteadmin">Odstranit</button></td>
+              </tr>
+            <?php endforeach ?>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--Delete admin-->
+<div class="modal fade" id="modaldeleteadmin" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Odstranit administrátora</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="deleteadminmodal" class="modal-body">
+        <div class="row">
+          <div class="col-md-12">Skutečně chcete tohoto administrátora odstranit?</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="confirmadmindelete" class="btn" style="border: 1px solid rgb(172, 172, 172);">Odstranit</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script defer src="../../assets/js/adminlist.js"></script>

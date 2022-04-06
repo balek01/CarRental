@@ -1,0 +1,61 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .textinimg {
+    font-size: 58px;
+  }
+}
+
+@media (max-width: 600px) {
+  .textinimg {
+    font-size: 30px;
+  }
+}
+
+
+
+.barvabtnsedalogin:active {
+  background-color: lightgray !important;
+  color: black !important;
+}
+
+
+
+.barvabtnseda {
+  border: 1px solid rgb(172, 172, 172) !important;
+}
+
+@media (min-width: 767px) {
+  .media-login-menu-bd {
+    display: none !important;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .media-login-menu {
+    display: none !important;
+  }
+}
+
+
+.odkaztable:focus, .odkaztable:active:focus {
+  box-shadow: none !important;
+  
+}
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 60px;
+}
+
+.loadphoto{
+
+  text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+}

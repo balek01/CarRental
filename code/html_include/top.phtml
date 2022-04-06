@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$path = $_SERVER['DOCUMENT_ROOT'] . "/assets/php/dbconnect.php";
+include $path;
+
+$path = $_SERVER['DOCUMENT_ROOT'] . "/assets/php/logincheck.php";
+include $path;
+?>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>DriveOut | Bálek Miroslav</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/filter.css">
+    <link rel="stylesheet" href="/assets/css/carlist.css">
+    <link rel="stylesheet" href="/assets/css/info-cards.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="/assets/css/textoverimg.css">
+    <link rel="stylesheet" href="/assets/css/datatables.css">
+    <link rel="stylesheet" href="/assets/DataTables/datatables.min.css">
+
+</head>
+
+
+
+
+
+
+
+<body style="min-width: 360px;">
+
+
+    <nav class="navbar navbar-light navbar-expand-md shadow-sm">
+        <div class="container"><a class="navbar-brand" href="/">DriveOut</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="/vozovy_park" style="color: rgb(0,0,0);">Vozový park</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="/o_nas" style="color: rgb(0,0,0);">O nás</a>
+                    </li>
+                    
+                    <?php if (!isset($_SESSION["iduser"])) : ?>
+                        <li class="nav-item active media-login-menu-bd"><a class="nav-link media-login-menu-bd" style="color: rgb(0,0,0);" data-toggle="modal" data-target="#exampleModal">Přihlásit se</a>
+                        </li>
+                        <li class="nav-item active media-login-menu-bd"><a class="nav-link media-login-menu-bd" href="/registrace" style="color: rgb(0,0,0);">Registrace</a></li>
+                    <?php else : ?>
+                        <li class="nav-item active media-login-menu-bd"><a class="nav-link media-login-menu-bd" href="/muj_profil" style="color: rgb(0,0,0);">Můj profil</a></li>
+                        <li class="nav-item active media-login-menu-bd"><a class="nav-link media-login-menu-bd" href="/moje_rezervace" style="color: rgb(0,0,0);">Moje rezervace</a></li>
+                        <li class="nav-item active media-login-menu-bd"><a class="nav-link media-login-menu-bd" href="/zmena_hesla" style="color: rgb(0,0,0);">Změna hesla</a></li>
+                        <li class="nav-item active media-login-menu-bd"><a class="nav-link media-login-menu-bd" href="/assets/php/logout.php" style="color: rgb(0,0,0);">Odhlásit se</a></li>
+                    <?php endif ?>
+                </ul>
+
+
+                <div class="dropdown media-login-menu"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#" style="color: rgb(0,0,0);margin: 0;padding: 65px;"><i class="fa fa-user" style="font-size: 20px;"></i></a>
+                    <div class="dropdown-menu">
+                        <?php if (!isset($_SESSION["iduser"])) : ?>
+                            <a class="dropdown-item barvabtnsedalogin" data-toggle="modal" data-target="#exampleModal">Přihlásit se</a>
+                            <a class="dropdown-item barvabtnsedalogin" href="/registrace">Registrace</a>
+                        <?php else : ?>
+                            <a class="dropdown-item barvabtnsedalogin" href="/muj_profil">Můj profil</a>
+                            <a class="dropdown-item barvabtnsedalogin" href="/moje_rezervace">Moje rezervace</a>
+                            <a class="dropdown-item barvabtnsedalogin" href="/zmena_hesla">Změna hesla</a>
+                            <a class="dropdown-item barvabtnsedalogin" href="/assets/php/logout.php">Odhlásit se</a>
+                        <?php endif ?>
+                    </div>
+                </div><span class="navbar-text actions"> </span>
+            </div>
+        </div>
+    </nav>
+
+
+    <!--Modál přihlásit se-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Přihlášení</h5>
+                </div>
+
+                <form method="POST" id="formlogin">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 pb-3">
+                                <input required name="email-login" type="email" class="form-control " placeholder="Email">
+                            </div>
+
+                            <div class="col-md-12 pb-3">
+                                <input required name="password-login" type="password" class="form-control " placeholder="Heslo">
+                            </div>
+                            <div class="col-md-12 pb-3" style="display: none;" id="errlog">
+                                <small class=" text-danger">Nesprávný email nebo heslo.</small>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="modal-footer">
+                        <button name="submit-login" value="submit-login" type="submit" id="submitbtn" class="btn" style="border: 1px solid rgb(172, 172, 172);">Přihlásit</button>
+                        <button type="button" class="btn btn-dark btn-secondary" data-dismiss="modal">Zavřít</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+    <?php
+
+
+    ?>
+
+    <!--Konec modál přihlásit se-->
+
+    <script defer src="../assets/js/top.js"></script>

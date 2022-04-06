@@ -1,0 +1,123 @@
+<?php if (!empty($reservation["idreservation"])) : ?>
+
+    <div class="container mt-5 mx-auto">
+
+
+        <!-- <h2 class="text-center  mb-5">DETAIL REZERVACE <?= $idreservation ?></h2>-->
+
+        <div class="col-md-9  shadow  mx-auto py-4 px-5">
+            <div class="row">
+                <h4>DETAIL REZERVACE <?= $idreservation ?></h4>
+                <form method="POST" id="formupdate">
+                    <div class="form-row ">
+
+                        <div class="col-md-6  mt-3">
+                            <input disabled type="text" class="form-control" value="<?= ucfirst($reservation["firstname"]) ?>">
+                        </div>
+
+                        <div class="col-md-6  mt-3">
+                            <input disabled type="text" class="form-control" value="<?= ucfirst($reservation["lastname"]) ?>">
+                        </div>
+
+                        <div class="col-md-6  mt-3">
+                            <input disabled type="text" class="form-control" value="<?= ucfirst($reservation["brand"]) ?>">
+                        </div>
+
+                        <div class="col-md-6  mt-3">
+                            <input disabled type="text" class="form-control" value="<?= ucfirst($reservation["model"]) ?>">
+                        </div>
+
+
+
+                        <div class="col-md-6  mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Od:</span>
+                                </div>
+                                <input required onchange="totalPrice(<?= $reservation['price'] ?>)" name="datumod" id="datumod" type="date" min="<?= $reservation["date_of_reservation"] ?>" class="form-control" value="<?= isset($_POST["datumod"]) ? $_POST["datumod"] : $reservation["start_date"] ?>">
+                                <label class="text-danger" style="<?= isset($errarray["err1"]) ? "display: inline" : "display: none;" ?>">Datum od větší být menší než datum provedení.</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6  mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Do:</span>
+                                </div>
+                                <input required onchange="totalPrice(<?= $reservation['price'] ?>)" name="datumdo" id="datumdo" type="date" min="<?= $reservation["date_of_reservation"] ?>" class="form-control" value="<?= isset($_POST["datumdo"]) ? $_POST["datumdo"] : $reservation["end_date"] ?>">
+                                <label class="text-danger" style="<?= isset($errarray["err2"]) ? "display: inline" : "display: none;" ?>">Datum do musí být větší než datum provedení.</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6  mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Provedeno:</span>
+                                </div>
+                                <input disabled type="date" class="form-control" value="<?= $reservation["date_of_reservation"] ?>">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6  mt-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text <?= isset($reservation["return_date"]) ? "" : "text-danger" ?>"><?= isset($reservation["return_date"]) ? "Vráceno:" : "Nevráceno" ?></span>
+                                </div>
+                                <input name="datum_vraceni" min="<?= $reservation["start_date"] ?>" max="<?= date("Y-m-d") ?>" type="date" class="form-control" value="<?= isset($_POST["datum_vraceni"]) ? $_POST["datum_vraceni"] : $reservation["return_date"] ?>">
+                                
+                                <label class="text-danger" style="<?= isset($errarray["err4"]) ? "display: inline" : "display: none;" ?>">Nelze vrátit vozidlo před datumem vypůjčení.</label>
+                                <label class="text-danger" style="<?= isset($errarray["err5"]) ? "display: inline" : "display: none;" ?>">Nelze potvrdit vrácení v budoucím čase.</label>
+
+                            </div>
+                        </div>
+                            <div class="col-md-12 mt-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="zrusitcheckbox" name="checkboxundo" style="min-height: 15px; min-width: 15px;">
+                                <label for="zrusitcheckbox" class="form-check-label">
+                                    Nevrácené vozidlo.
+                                </label>
+                            </div>
+                            </div>
+
+                        <div class="col-md-6 mt-2">
+                            <div class="form-check">
+                                <input onclick="ischecked()" class="form-check-input" type="checkbox" id="checkito" name="checkbox" style="min-height: 15px; min-width: 15px;">
+                                <label for="checkito" class="form-check-label">
+                                    Upravit rezervaci.
+                                </label>
+                            </div>
+                            <label class="text-danger" style="<?= isset($errarray["err6"]) ? "display: inline" : "display: none;" ?>">Nutno zaškrtnout.</label>
+                        </div>
+
+                        <div class="col-md-6 mt-3">
+                            <h5 class="text-right" id="totalprice"> Cena celkem&nbsp<?= number_format($reservation["cost"], 0, ",", "&nbsp") ?>&nbspKč</h5>
+                        </div>
+
+                        <div class="col-md-6 mt-3">
+                            <a href="/admin/uzivatele/detail_uzivatele?id=<?= $reservation["iduser"] ?>"> <button  type="button" class="btn barvabtnseda btn-secondary w-100 p-2"><strong>Zobrazit uživatele</strong></button></a>
+                        </div>
+
+                        <div class="col-md-6 mt-3">
+                            <a href="/admin/vozidlo/detail_vozidla?id=<?= $reservation["carid"] ?>"><button type="button" class="btn barvabtnseda btn-secondary w-100 p-2"><strong>Zobrazit vozidlo</strong></button></a>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <button id="submitbutton" disabled="true" name="submit" class="btn barvabtnseda btn-dark w-100 p-2" type="submit"><strong>Upravit rezervaci</strong></button>
+                            <label class="text-success" style="<?= isset($success) ? "display: inline" : "display: none;" ?>">Rezervace byla upravena.</label>
+                            <label class="text-danger" style="<?= isset($errarray["err0"]) ? "display: inline" : "display: none;" ?>">Pole Od a Do musí být vyplněna.</label>
+                            <label class="text-danger" id="errreserve2" style="<?= isset($errarray["err3"]) ? "display: inline" : "display: none;" ?>">Datum od musí být menší než datum do.</label>
+                            <?php foreach ($reservationsdb as $reservationdb) : ?>
+                                <label class="text-danger" id="errreserve2">Vozidlo je již zaregistrováno(OD: <?= $reservationdb["start_date"] ?> DO: <?= $reservationdb["end_date"] ?>).</label>
+                            <?php endforeach ?>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    <?php else : ?>
+        <?= '<h2 class="text-center">ID rezervace neexistuje</h2>' ?>
+    <?php endif ?>
+
+    <script defer src="/assets/js/totalPrice.js"></script>
+    <script defer src="/assets/js/checkboxcheck.js"></script>

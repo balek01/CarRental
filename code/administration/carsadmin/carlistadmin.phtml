@@ -1,0 +1,123 @@
+
+<?php
+$dict[0]="Ne";
+$dict[1]="Ano";
+$dict[2]="Skryté";
+?>
+  <div class="row justify-content-center mt-5">
+    <div class="col-auto">
+
+      <h2 class="text-center mb-5">Seznam vozidel</h2>
+      <table class="table table-bordered table-responsive  text-center datatablecarlist">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Vozidlo</th>
+            <th scope="col">SPZ</th>
+            <th scope="col">Popisek</th>
+            <th scope="col">Pohon</th>
+            <th scope="col">Cena&nbsp(Kč)</th>
+            <th scope="col">Počet&nbspmíst</th>
+            <th scope="col">Řazení</th>
+            <th scope="col">Dostupné</th>
+            <th scope="col">Hodnoncení</th>
+            <th scope="col">Vybavení</th>
+            <th scope="col">Upravit</th>
+            <th scope="col">Skrýt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($vozidla as $vozidlo) : ?>
+            <tr>
+              <td scope="row"><?= $vozidlo["idcar"] ?></td>
+              <td style="padding: 0px;"> <a class="link-unstyled" href="/vozovy_park/vozidlo?id=<?= $vozidlo["idcar"] ?>"><button class="btn odkaztable"><strong> <?= $vozidlo["brand"] . "&nbsp" . $vozidlo["model"]; ?></strong></button></a></td>
+              <td><?=$vozidlo["license_plate"]?></td>
+              <td style="padding: 0px;"><a id="<?= $vozidlo["idcar"] ?>" class="link-unstyled getiddescription"><button class="btn odkaztable " data-toggle="modal" data-target="#modalpopis"> Zobrazit</button></a></td>
+              <td><?= $vozidlo["fuel"]; ?></td>
+              <td><?= round($vozidlo["price"])?></td>
+              <td><?= $vozidlo["seat"]; ?></td>
+              <td><?= $vozidlo["gearing"]; ?></td>
+              <td><?= $dict[$vozidlo["available"]] ?></td>
+              <td><?= $vozidlo["stars"] ?></td>
+              <td style="padding: 0px;"><a id="<?= $vozidlo["idcar"] ?>" class="link-unstyled getidequipment"><button class="btn odkaztable " data-toggle="modal" data-target="#modalvybaveni"> Zobrazit</button></a></td>
+              <td style="padding: 0px;"> <a class="link-unstyled" href="/admin/vozidla/detail_vozidla?id=<?= $vozidlo["idcar"] ?>"><button class="btn odkaztable"><strong>Upravit</strong></button></a></td>
+              <td style="padding: 0px;"><button id="<?= $vozidlo["idcar"]; ?>" data-clicked="false" class="btn odkaztable hidecar" data-toggle="modal" data-target="#modalhide"><?=$vozidlo["available"] ==2 ? "Zobrazit" :"Skrýt"?></button></td>
+            </tr>
+          <?php endforeach ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  </div>
+
+
+
+
+<!-- description -->
+<div class="modal fade" id="modalpopis" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Popis Vozidla</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="descriptionmodal" class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- equipment -->
+<div class="modal fade" id="modalvybaveni" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Vybaveni Vozidla</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="equipmentmodal" class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--hide-->
+<div class="modal fade" id="modalhide" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Skrýt/zobrazit vozidlo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="hidemodal" class="modal-body">
+        <div class="row">
+          <div class="col-md-12">Skutečně chcete toto vozidlo skrýt/zorazit?</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="confirmhide" class="btn" style="border: 1px solid rgb(172, 172, 172);">Provést</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script defer src="../../assets/js/carlistadmin.js"></script>
